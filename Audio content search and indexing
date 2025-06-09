@@ -1,0 +1,151 @@
+import os
+
+from pydub import AudioSegment
+
+import speech_recognition as sr
+
+Split audio into 10-second .wav chunks
+
+def split_audio(file_path, chunk_length_ms=10000):
+
+audio AudioSegment.from_wav(file_path) # Only WAV is supported without FFmpeg
+
+chunks []
+
+for i in range(0, len (audio), chunk_length_ms):
+
+chunk audio[i:i + chunk_length_ms]
+
+chunk_name = f"chunk_{1//chunk_length_ms).wav"
+
+chunk.export(chunk_name, format="wav")
+
+chunks.append((chunk_name, i // 1000)) # time in seconds
+
+return chunks
+
+Transcribe each chunk
+[09/06, 10:46 pm] Chandru Fri: def transcribe_chunks (chunks):
+
+r = sr.Recognizer()
+
+results = []
+
+for file, start time in chunks:
+
+with sr.AudioFile(file) as source:
+
+audio r.record (source)
+
+try:
+
+text = r.recognize_google(audio)
+
+print(f"[(start_time)s] {text}")
+
+results.append((start_time, text))
+
+except sr.UnknownValueError:
+
+print(f"[{start_time)s] X Couldn't understand audio")
+
+os.remove(file) # delete temp file
+
+return results
+
+Keyword search
+
+def search_keyword (transcripts, keyword):
+
+return [(t, txt) for t, txt in transcripts if keyword.lower() in txt.lower()]
+
+Main
+
+def main():
+
+file_path = r"C:\Users\Admin\Documents\NM project gokul\cricketoncats_01_euwer_64kb.wav"
+
+#WAV only
+
+print(" Splitting audio...")
+
+chunks split_audio(file_path)
+
+print(" Transcribing...")
+
+transcripts = transcribe_chunks (chunks)
+
+keyword= input("\n Enter keyword to search: ")
+
+results search_keyword (transcripts, keyword)
+
+print("\n Results:")
+
+if results:
+
+for time, text in results:
+
+print(f" (time)s: (text)")
+
+else:
+
+print("X No matches found.")
+
+if_name_ == "__main__":
+
+main()
+[09/06, 10:47 pm] Chandru Fri: in range, len autio), chunk length_s) chunk audio 1:1 chunk length_
+
+chunk name chant [1//chunk lengths)
+
+chuok export (chunk name, format)
+
+chunks, append((chunk name, 177 1000)
+
+品
+
+A
+
+return chunks
+
+Transcrite each chunk
+
+def transcribe chunks (chunks)
+
+3.Recognizer()
+
+results[]
+
+for file, start time in chunks
+
+with s AudioFile(file) as sources
+
+audio r-record(source)
+
+PIRLS CUTAR DEBUG CONSOLE TERMINAL PORTS
+
+Cr Users AppData\Local\Programs Python Python338\10\site-packages\pydut/utils.py:170: Runtimsarning: couldn't find frepeg defaulting to ffmpeg, but way not work
+
+wem "Couldn't find ffmpeg or aucony defaulting to frapeg, but may not work", Runtimarming)
+
+Splitting allo...
+
+Transcribing.
+
+Us) dedication introduction and process fron Diristopher cricket and [ with ubservations Deduction
+
+(3m) maturity and oven all the age according sir in the
+
+[205] Christopher cricket on cats with observations and
+
+(305) maturity and even old age by Anthony Anderson your
+
+[es] dedication to our caste certificate fras the beginning of all tise this present
+
+(Sn) world recons that still to come and all those that lives into their goals each count st munt to the relatives and
+
+[005] Especially to sandal
+
+D
+
+56, Col 10
