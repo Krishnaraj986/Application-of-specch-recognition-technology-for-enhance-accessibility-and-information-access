@@ -1,0 +1,154 @@
+Introduction:
+
+Real-time subtitling for live events is a speech-to-text system designed to generate live captions from spoken audio. It leverages Automatic Speech Recognition (ASR) to transcribe ongoing speech instantly, enhancing accessibility for hearing-impaired individuals and improving audience engagement. The system uses live microphone input or streaming audio, processes it using libraries like speech_recognition, and outputs synchronized subtitles. Built with Python, the solution is lightweight and adaptable to various platforms, including Google Colab. This project plays a vital role in bridging communication gaps in conferences, webinars, and live broadcasts.
+
+Problem Statement:
+
+Live events often lack real-time subtitles, making them inaccessible to hearing-impaired and non-native speakers. Manual transcription is too slow for live scenarios. This project aims to build an automated system that generates instant subtitles using speech recognition.
+
+Objectives:
+
+Ensure Timely Delivery
+
+Automate the live transcription process to deliver accurate subtitles with minimal delay, ensuring audiences receive synchronized captions in real time.
+
+Enhance Personalization
+
+Adapt subtitle display formats and language preferences to suit diverse audiences, offering a more inclusive and user-friendly experience.
+
+Improve Audience Engagement
+
+Boost attendee satisfaction and comprehension, especially for hearing-impaired or non-native speakers, by providing clear, real-time subtitles throughout the event.
+
+Methodology:
+
+Problem Analysis
+
+Identified the challenge of making live events accessible to diverse audiences, especially those with hearing impairments or language barriers. Manual transcription is too slow, and existing solutions are often expensive or platform-dependent.
+
+Input Data Preparation
+
+Configured the system to capture real-time audio from a microphone or streaming source. Prepared the audio input using standard sampling rates and formats compatible with speech recognition APIs.
+
+Error Handling
+
+Integrated fallback mechanisms to detect inaudible speech, silence, or recognition failures. The system displays "Listening..." or "Unable to detect speech" messages when transcription is unclear or unsuccessful.
+[09/06, 10:41 pm] Chandru Fri: Testing and Validation
+
+Tested the system using live speaking sessions with various accents, background noises, and speaking speeds. Validated the transcription quality and subtitle delay using real-time metrics and user feedback to ensure subtitle accuracy and synchronization.
+
+Program coding:
+
+1. Input Data
+
+Subtitle_input.wav
+
+!pip install SpeechRecognition pydub from google.colab import files
+
+uploaded = files.upload()
+
+filename = list(uploaded.keys())[0]
+
+import speech_recognition as sr from pydub import AudioSegment from pydub.utils import make_chunks import os
+
+import IPython.display as ipd
+
+# Load audio
+
+audio AudioSegment.from_wav(filename)
+
+chunk_length_ms = 5000 #5 seconds per subtitle
+
+chunks make_chunks(audio, chunk_length_ms)
+
+#Save chunks and recognize each one
+
+r = sr.Recognizer()
+
+subtitle_output =
+
+print(" Generating subtitles...\n") for i, chunk in enumerate(chunks):
+
+chunk_filename = f"chunk(i).wav"
+
+chunk.export(chunk_filename, format="wav")
+
+with sr. AudioFile(chunk_filename) as source:
+
+audio_data = r.record(source)
+[09/06, 10:42 pm] Chandru Fri: try:
+
+text = r.recognize_google(audio_data)
+
+except sr.UnknownValueError:
+
+text = "[Unclear audio]"
+
+except sr.RequestError as e:
+
+text=f"[Error: {e}]"
+
+timestamp = f"[{(i* 5):02d)s - ((i*5+5):02d)s]" subtitle_output.append(f" (timestamp): (text)")
+
+os.remove(chunk_filename)
+
+# Display subtitles for line in subtitle_output:
+
+print(line)
+
+# Optional: Save subtitles to a file with open("subtitles.txt", "w") as f:
+
+f.write("\n".join(subtitle_output))
+
+files.download("subtitles.txt")
+
+Output:
+
+Requirement already satisfied: speechRecognition in /usr/local/lib/python3.11/dist-packages (3.24.3)
+
+Requirement already satisfied: pydub in /usr/local/lib/python3.11/dist-packages (0.25.1)
+
+Requirement alressly satisfied: typing-extensions in /var/local/lib/python3.11/dist-packages (from SpeechRecognition) (4.13.3)
+
+OSR 00_(1)
+
+OSR us 000 0010 8k (1).wav (audiowav)-538014 bytes, last modiles 5/20/2025-100% dune
+
+Saving 05k us 000 0010 ak (1).wav tu 058 000 0000 B (1).wav Generating subtitles...
+
+[#055]: the Birch canoe slid on the smooth planks glue the
+
+tell the depth of a well
+
+ts10] listen to the dark dark blue background it is easy to tell
+
+1106155]: these days a chicken leg is a rare dish rice is [15%-20%): who served in round Bowls the juice of lemons sukes fine punch
+
+[206296]: the was thrown heside the park truck the nogs are foll
+
+125% 10%]: good morning garbage a hours of study work faced us
+[09/06, 10:43 pm] Chandru Fri: File
+
+[005055]: the Birch canoe slid on the smooth planks glue the
+
+10s 15s: these days a chicken leg is a rare dish rice is
+
+[05s 10s]: listen to the dark blue background it is easy to tell the depth of a well
+
+[15s 20s]: who served in round Bowls the juice of lemons makes fine punch
+
+[20s 255]: the box was thrown beside the park truck the Hogs are fed [25% 305]: good morning garbage 4 hours of study work faced us
+
+[30s 355]: a large size in stockings is hard to sell
+
+Un 1, Col 1
+
+478 characters
+
+300
+
+UTF-8
+
+Conclusion
+
+The Real-Time Subtitling for Live Events project successfully demonstrates how speech recognition can be used to generate live subtitles, improving accessibility and audience engagement. By capturing and transcribing audio in real time, the system ensures timely and synchronized subtitles for various live scenarios. It addresses challenges faced by hearing-impaired individuals and non-native speakers, promoting inclusivity. With efficient audio handling, error management, and validation, the project proves to be a practical solution for live event communication support.
